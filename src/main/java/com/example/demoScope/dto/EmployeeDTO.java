@@ -1,18 +1,14 @@
 package com.example.demoScope.dto;
 
-import com.example.demoScope.entity.Employee;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Stream;
 
-public class EmployeeDTO extends ArrayList<Employee> {
+public class EmployeeDTO {
 
     private int empId;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    private Date dateOfJoining;
+    private String experience;
 
     public int getEmpId() {
         return empId;
@@ -46,11 +42,8 @@ public class EmployeeDTO extends ArrayList<Employee> {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Date getDateOfJoining() { return dateOfJoining; }
+    public String getExperience(){ return experience;}
 
-    public void setDateOfJoining(Date dateOfJoining) {
-        this.dateOfJoining = dateOfJoining;
-    }
-
+    public void setExperience(String experience) { this.experience = experience; }
 
 }

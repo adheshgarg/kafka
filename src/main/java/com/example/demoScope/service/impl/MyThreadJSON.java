@@ -1,5 +1,6 @@
 package com.example.demoScope.service.impl;
 
+import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
@@ -32,13 +33,13 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
 
     @Override
     public ArrayList<Employee> readJSON() throws Exception {
-        ArrayList<Employee> employeeArray = new ArrayList();
+        ArrayList<EmployeeDTO> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
 
         JSONArray jsonArrayRead = (JSONArray) obj;
 
         for (int i = 0; i < 100; i++) {
-            Employee emp = new Employee();
+            EmployeeDTO emp = new EmployeeDTO();
 
 
             JSONObject data = (JSONObject) jsonArrayRead.get(i);
