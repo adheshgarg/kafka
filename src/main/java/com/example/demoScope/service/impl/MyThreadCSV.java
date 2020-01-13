@@ -1,5 +1,6 @@
 package com.example.demoScope.service.impl;
 
+import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
@@ -20,7 +21,7 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    Employee employee=new Employee();
+    EmployeeDTO employee=new EmployeeDTO();
 
     @Override
     public ArrayList<Employee> readCSV() throws Exception {
@@ -37,10 +38,10 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
         for (int i = 0; i < 100; i++) {
             values = lines.get(i).split(",");
             System.out.println(Arrays.toString(values));
-            ((Employee) employee).setFirstName((String) values[0]);
-            ((Employee) employee).setLastName((String) values[1]);
-            ((Employee) employee).setDateOfBirth((String) values[2]);
-            ((Employee) employee).setExperience(new Double(values[3]).toString());
+            ((EmployeeDTO) employee).setFirstName((String) values[0]);
+            ((EmployeeDTO) employee).setLastName((String) values[1]);
+            ((EmployeeDTO) employee).setDateOfBirth((String) values[2]);
+            ((EmployeeDTO) employee).setExperience(new Double(values[3]).toString());
 
             employee.setFirstName(values[0]);
             employee.setLastName(values[1]);
@@ -68,7 +69,7 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     }
 
     @Override
-    public ArrayList<Employee> readJSON() throws Exception {
+    public ArrayList<EmployeeDTO> readJSON() throws Exception {
         return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demoScope.service.impl;
 
+import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
@@ -15,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class MyThreadXML extends Thread implements EmployeeServices {
@@ -23,12 +25,15 @@ public class MyThreadXML extends Thread implements EmployeeServices {
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
+    public ArrayList<EmployeeDTO> readCSV() throws Exception {
         return null;
     }
 
+    public static ArrayList<EmployeeDTO> EmployeeXML =new ArrayList<EmployeeDTO>();
+
+
     @Override
-    public ArrayList<Employee> readXML()
+    public ArrayList<EmployeeDTO> readXML()
     {
 ​
         try
@@ -47,18 +52,18 @@ public class MyThreadXML extends Thread implements EmployeeServices {
                 Node node = nodeList.item(itr);
                 if (node.getNodeType() == Node.ELEMENT_NODE)
                 {
-                    Employee employee=new Employee();
+                    EmployeeDTO employee=new EmployeeDTO();
                     Element eElement = (Element) node;
-                    firstName=eElement.getElementsByTagName("firstName").item(0).getTextContent();
+                    String firstName=eElement.getElementsByTagName("firstName").item(0).getTextContent();
                     employee.setFirstName(firstName);
-                    lastName=eElement.getElementsByTagName("lastName").item(0).getTextContent();
+                    String lastName=eElement.getElementsByTagName("lastName").item(0).getTextContent();
                     employee.setLastName(lastName);
                     String q=eElement.getElementsByTagName("dateOfBirth").item(0).getTextContent();
-                    dateOfBirth=new SimpleDateFormat("dd/MM/yyyy").parse(q);
+                     Date dateOfBirth=new SimpleDateFormat("dd/MM/yyyy").parse(q);
                     employee.setDateOfBirth(dateOfBirth);
-                    experience=Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
+                    long experience=Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
                     employee.setExperience(experience);
-                    employeeArray.add(employee);
+                    EmployeeXML.add(employee);
                 }
 ​
             }
@@ -67,11 +72,11 @@ public class MyThreadXML extends Thread implements EmployeeServices {
         {
             e.printStackTrace();
         }
-        return employeeArray;
+        return EmployeeXML;
     }
 
     @Override
-    public ArrayList<Employee> readJSON() throws Exception {
+    public ArrayList<EmployeeDTO> readJSON() throws Exception {
         return null;
     }
 
@@ -81,6 +86,6 @@ public class MyThreadXML extends Thread implements EmployeeServices {
     @Override
     public void run() {
         super.run();
-        this.readXml();
+        this.readXML();
     }
 }

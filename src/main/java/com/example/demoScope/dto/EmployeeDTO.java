@@ -49,4 +49,7 @@ public class EmployeeDTO {
     public void setDateOfJoining(Date dateOfJoining) {
         this.dateOfJoining = dateOfJoining;
     }
+
+    public void setExperience(long s) {
+    }
 }

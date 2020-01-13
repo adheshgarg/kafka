@@ -1,6 +1,6 @@
 package com.example.demoScope.service.impl;
 
-import com.example.demoScope.entity.Employee;
+import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
 import org.json.simple.JSONArray;
@@ -21,24 +21,24 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
+    public ArrayList<EmployeeDTO> readCSV() throws Exception {
         return null;
     }
 
     @Override
-    public ArrayList<Employee> readXML() throws Exception {
+    public ArrayList<EmployeeDTO> readXML() throws Exception {
         return null;
     }
 
     @Override
-    public ArrayList<Employee> readJSON() throws Exception {
-        ArrayList<Employee> employeeArray = new ArrayList();
+    public ArrayList<EmployeeDTO> readJSON() throws Exception {
+        ArrayList<EmployeeDTO> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
 
         JSONArray jsonArrayRead = (JSONArray) obj;
 
         for (int i = 0; i < 100; i++) {
-            Employee emp = new Employee();
+            EmployeeDTO emp = new EmployeeDTO();
 
 
             JSONObject data = (JSONObject) jsonArrayRead.get(i);
