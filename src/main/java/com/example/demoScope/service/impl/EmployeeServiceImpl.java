@@ -44,7 +44,6 @@ public class EmployeeServiceImpl implements EmployeeServices {
             lines.add(line);
         }
         String values[] = new String[100];
-        ArrayList<Employee> empcsv = new ArrayList<Employee>();
         for (int i = 0; i < 100; i++) {
             //Employee e=new Employee();
             values = lines.get(i).split(",");
