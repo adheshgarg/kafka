@@ -51,6 +51,11 @@ public class MyThreadCSV extends Thread {
 
     @Override
     public void run() {
-
+        super.run();
+        try {
+            this.readCSV();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

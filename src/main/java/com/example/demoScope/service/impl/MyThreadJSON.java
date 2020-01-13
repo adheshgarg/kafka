@@ -61,5 +61,10 @@ public class MyThreadJSON extends Thread {
     @Override
     public void run() {
         super.run();
+        try {
+            this.readJSON();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
