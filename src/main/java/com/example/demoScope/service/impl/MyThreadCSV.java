@@ -25,7 +25,6 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
 
     @Override
     public ArrayList<Employee> readCSV() throws Exception {
-        //CSVFile CSVFile = new CSVFile();
         ArrayList<Employee> employeeCSV = new ArrayList<Employee>();
 
         String line = " ";
