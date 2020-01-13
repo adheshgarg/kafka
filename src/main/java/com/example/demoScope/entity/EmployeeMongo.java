@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Document(collection = "EMP_MONGO")
+@Document(collection = "EMPLOYEE")
 public class EmployeeMongo {
 
 
