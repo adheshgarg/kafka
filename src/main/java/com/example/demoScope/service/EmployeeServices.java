@@ -8,10 +8,14 @@ import java.util.ArrayList;
 @Service
 public interface EmployeeServices {
 
+<<<<<<< HEAD
     ArrayList<Employee> readcsv();
+=======
+    ArrayList<Employee> readCSV() throws Exception;
+>>>>>>> d981bd1a6aa1b57804af3da2cc23e55d2dd8d54f
 
-    ArrayList<Employee> readXml();
+    ArrayList<Employee> readXML() throws Exception;
 
-    ArrayList<Employee> readJSON();
+    ArrayList<Employee> readJSON() throws Exception;
 
 }

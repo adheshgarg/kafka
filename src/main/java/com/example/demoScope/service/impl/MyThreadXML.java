@@ -5,6 +5,7 @@ import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,18 +18,28 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Service
 public class MyThreadXML extends Thread implements EmployeeServices {
 
     @Autowired
     EmployeeRepository employeeRepository;
 
     @Override
+<<<<<<< HEAD
     public ArrayList<Employee> readcsv() {
+=======
+    public ArrayList<Employee> readCSV() throws Exception {
+>>>>>>> d981bd1a6aa1b57804af3da2cc23e55d2dd8d54f
         return null;
     }
 
     @Override
+<<<<<<< HEAD
     public ArrayList<Employee> readXml() {
+=======
+    public ArrayList<Employee> readXML()
+    {
+>>>>>>> d981bd1a6aa1b57804af3da2cc23e55d2dd8d54f
 ​
         EmployeeDTO employeeDTO;
         try {
@@ -67,6 +78,11 @@ public class MyThreadXML extends Thread implements EmployeeServices {
 
     @Override
     public ArrayList<Employee> readJSON() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Employee> readJSON() throws Exception {
         return null;
     }
 
