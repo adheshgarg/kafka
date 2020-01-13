@@ -33,13 +33,13 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
 
     @Override
     public ArrayList<Employee> readJSON() throws Exception {
-        ArrayList<EmployeeDTO> employeeArray = new ArrayList();
+        ArrayList<Employee> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
 
         JSONArray jsonArrayRead = (JSONArray) obj;
 
         for (int i = 0; i < 100; i++) {
-            EmployeeDTO emp = new EmployeeDTO();
+            Employee emp = new Employee();
 
 
             JSONObject data = (JSONObject) jsonArrayRead.get(i);
