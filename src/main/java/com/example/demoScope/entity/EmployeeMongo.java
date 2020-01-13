@@ -1,9 +1,17 @@
-package com.example.demoScope.dto;
+package com.example.demoScope.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.*;
 import java.util.Date;
 
-public class EmployeeDTO {
+@Entity
+@Document(collection = "EMPLOYEE")
+public class EmployeeMongo {
 
+
+    @Id
+    @Column(name="empId")
     private int empId;
     private String firstName;
     private String lastName;
