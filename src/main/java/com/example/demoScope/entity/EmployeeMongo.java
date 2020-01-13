@@ -1,13 +1,17 @@
-package com.example.demoScope.dto;
+package com.example.demoScope.entity;
 
-import com.example.demoScope.entity.Employee;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.Date;
-import java.util.stream.Stream;
 
-public class EmployeeDTO extends ArrayList<Employee> {
+@Entity
+@Document(collection = "EMPLOYEE")
+public class EmployeeMongo {
 
+
+    @Id
+    @Column(name="empId")
     private int empId;
     private String firstName;
     private String lastName;
@@ -46,11 +50,11 @@ public class EmployeeDTO extends ArrayList<Employee> {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Date getDateOfJoining() { return dateOfJoining; }
+    public Date getDateOfJoining() {
+        return dateOfJoining;
+    }
 
     public void setDateOfJoining(Date dateOfJoining) {
         this.dateOfJoining = dateOfJoining;
     }
-
-
 }
