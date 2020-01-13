@@ -8,7 +8,7 @@ public class EmployeeDTO {
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    private String experience;
+    private long experience;
 
     public int getEmpId() {
         return empId;
@@ -42,8 +42,8 @@ public class EmployeeDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getExperience(){ return experience;}
+    public long getExperience(){ return experience;}
 
-    public void setExperience(String experience) { this.experience = experience; }
+    public void setExperience(long experience) { this.experience = experience; }
 
 }
