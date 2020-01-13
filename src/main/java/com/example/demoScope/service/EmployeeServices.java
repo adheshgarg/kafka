@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Service
 public interface EmployeeServices {
 
-    Employee readcsv();
+    ArrayList<Employee> readcsv();
 
     ArrayList<Employee> readXml();
 

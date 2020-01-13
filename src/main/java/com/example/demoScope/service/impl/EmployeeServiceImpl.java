@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -26,6 +27,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeServices {
 
     @Autowired
@@ -63,13 +65,13 @@ public class EmployeeServiceImpl implements EmployeeServices {
     }
     //CSV READING ENDS-----------------
 
-
     // XML starts here----------------------------------------------------------------
 
 
 
-    public static ArrayList<Employee> employeeArray =new ArrayList<Employee>();
+    public ArrayList<Employee> employeeArray =new ArrayList<Employee>();
 
+    @Override
     public ArrayList<Employee> readXml()
     {
 ​
@@ -116,6 +118,7 @@ public class EmployeeServiceImpl implements EmployeeServices {
     //// XML ENDS----------------------------------------------------------------------
 
     /// JSON READ STARTS --------------------------------------------------------------
+    @Override
     public ArrayList<Employee> readJSON() throws Exception {
         ArrayList<Employee> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
@@ -154,4 +157,35 @@ public class EmployeeServiceImpl implements EmployeeServices {
 
     //JSON READ ENDS ----------------------------------------------------------------------------------
 
+
+    //CSV READING STARTS------------------
+    @Override
+    public Employee readCSV() throws Exception {
+        //CSVFile CSVFile = new CSVFile();
+        String line = " ";
+        BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
+        List<String> lines = new ArrayList<>();
+        while ((line = br.readLine()) != null) {
+            lines.add(line);
+        }
+        String values[] = new String[100];
+        ArrayList<Employee> empcsv = new ArrayList<Employee>();
+        for (int i = 0; i < 100; i++) {
+            //Employee e=new Employee();
+            values = lines.get(i).split(",");
+            System.out.println(Arrays.toString(values));
+            ((Employee) employee).setFirstName((String) values[0]);
+            ((Employee) employee).setLastName((String) values[1]);
+            ((Employee) employee).setDateOfBirth((String) values[2]);
+            ((Employee) employee).setExperience(new Double(values[3]).toString());
+
+            employee.setFirstName(values[0]);
+            employee.setLastName(values[1]);
+            Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
+            employee.setDateOfBirth(dateOfBirth);
+            employee.setExperience((Integer.parseInt(values[3])));
+        }
+        return employee;
+    }
+    //CSV READING ENDS-----------------
 }
