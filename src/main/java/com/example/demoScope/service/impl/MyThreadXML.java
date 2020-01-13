@@ -1,6 +1,5 @@
 package com.example.demoScope.service.impl;
 
-//import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
