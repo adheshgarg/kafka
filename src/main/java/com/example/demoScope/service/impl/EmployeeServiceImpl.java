@@ -11,7 +11,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -19,7 +18,6 @@ import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
@@ -33,6 +31,41 @@ public class EmployeeServiceImpl implements EmployeeServices {
     @Autowired
     EmployeeRepository employeeRepository;
 
+
+    // CSV STARTS HERE-----------------------------------------
+    Employee employee = new Employee();
+
+    public ArrayList<Employee> readcsv() throws Exception {
+        //CSVFile CSVFile = new CSVFile();
+        ArrayList<Employee> arrayListCSV = new ArrayList<Employee>();
+        String line = "";
+        BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
+        List<String> lines = new ArrayList<>();
+        while ((line = br.readLine()) != null) {
+            lines.add(line);
+        }
+        String values[] = new String[100];
+        ArrayList<Employee> empcsv = new ArrayList<Employee>();
+        for (int i = 0; i < 100; i++) {
+            //Employee e=new Employee();
+            values = lines.get(i).split(",");
+            System.out.println(Arrays.toString(values));
+            ((Employee) employee).setFirstName((String) values[0]);
+            ((Employee) employee).setLastName((String) values[1]);
+            ((Employee) employee).setDateOfBirth((String) values[2]);
+            ((Employee) employee).setExperience(new Double(values[3]).toString());
+
+            employee.setFirstName(values[0]);
+            employee.setLastName(values[1]);
+            Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
+            employee.setDateOfBirth(dateOfBirth);
+            employee.setExperience((Integer.parseInt(values[3])));
+            arrayListCSV.add(employee);
+
+        }
+        return arrayListCSV;
+    }
+    //CSV READING ENDS-----------------
 
 
     // XML starts here----------------------------------------------------------------
@@ -133,41 +166,4 @@ public class EmployeeServiceImpl implements EmployeeServices {
 
     //JSON READ ENDS ----------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-    //CSV READING STARTS------------------
-    @Override
-    public Employee readCSV() throws Exception {
-        //CSVFile CSVFile = new CSVFile();
-        String line = " ";
-        BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
-        List<String> lines = new ArrayList<>();
-        while ((line = br.readLine()) != null) {
-            lines.add(line);
-        }
-        String values[] = new String[100];
-        ArrayList<Employee> empcsv = new ArrayList<Employee>();
-        for (int i = 0; i < 100; i++) {
-            //Employee e=new Employee();
-            values = lines.get(i).split(",");
-            System.out.println(Arrays.toString(values));
-            ((Employee) employee).setFirstName((String) values[0]);
-            ((Employee) employee).setLastName((String) values[1]);
-            ((Employee) employee).setDateOfBirth((String) values[2]);
-            ((Employee) employee).setExperience(new Double(values[3]).toString());
-
-            employee.setFirstName(values[0]);
-            employee.setLastName(values[1]);
-            Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
-            employee.setDateOfBirth(dateOfBirth);
-            employee.setExperience((Integer.parseInt(values[3])));
-        }
-        return employee;
-    }
-    //CSV READING ENDS-----------------
 }
