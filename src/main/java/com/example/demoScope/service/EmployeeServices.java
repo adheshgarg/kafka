@@ -9,10 +9,9 @@ import java.util.ArrayList;
 @Service
 public interface EmployeeServices {
 
-    ArrayList<EmployeeDTO> readCSV() throws Exception;
+    ArrayList<Employee> readCSV() throws Exception;
 
-    ArrayList<EmployeeDTO> readXML() throws Exception;
+    ArrayList<Employee> readXML() throws Exception;
 
-    ArrayList<EmployeeDTO> readJSON() throws Exception;
-
+    ArrayList<Employee> readJSON() throws Exception;
 }

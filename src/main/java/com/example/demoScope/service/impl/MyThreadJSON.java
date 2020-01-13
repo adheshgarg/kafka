@@ -1,6 +1,6 @@
 package com.example.demoScope.service.impl;
 
-import com.example.demoScope.dto.EmployeeDTO;
+import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
 import org.json.simple.JSONArray;
@@ -21,24 +21,24 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<EmployeeDTO> readCSV() throws Exception {
+    public ArrayList<Employee> readCSV() throws Exception {
         return null;
     }
 
     @Override
-    public ArrayList<EmployeeDTO> readXML() throws Exception {
+    public ArrayList<Employee> readXML() throws Exception {
         return null;
     }
 
     @Override
-    public ArrayList<EmployeeDTO> readJSON() throws Exception {
-        ArrayList<EmployeeDTO> employeeArray = new ArrayList();
+    public ArrayList<Employee> readJSON() throws Exception {
+        ArrayList<Employee> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
 
         JSONArray jsonArrayRead = (JSONArray) obj;
 
         for (int i = 0; i < 100; i++) {
-            EmployeeDTO emp = new EmployeeDTO();
+            Employee emp = new Employee();
 
 
             JSONObject data = (JSONObject) jsonArrayRead.get(i);
@@ -49,10 +49,10 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
 
             Date date = simpleDateFormat.parse(dateOfBirth);
             String firstname = (String) data.get("firstName");
-            emp.setFirstName(firstname);
+            emp.setfirstName(firstname);
 
             String lastname = (String) data.get("lastName");
-            emp.setLastName(lastname);
+            emp.setlastName(lastname);
 
             emp.setDateOfBirth(date);
 

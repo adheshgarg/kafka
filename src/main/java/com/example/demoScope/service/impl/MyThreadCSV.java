@@ -21,13 +21,12 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    EmployeeDTO employee=new EmployeeDTO();
+    Employee employee = new Employee();
+    ArrayList<Employee> EmployeeCSV = new ArrayList<>();
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
+    public ArrayList<Employee>readCSV() throws Exception {
         //CSVFile CSVFile = new CSVFile();
-        ArrayList<Employee> EmployeeCSV = new ArrayList<Employee>();
-
         String line = " ";
         BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
         List<String> lines = new ArrayList<>();
@@ -35,19 +34,22 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
             lines.add(line);
         }
         String values[] = new String[100];
+        ArrayList<Employee> empcsv = new ArrayList<Employee>();
         for (int i = 0; i < 100; i++) {
+            //Employee e=new Employee();
             values = lines.get(i).split(",");
             System.out.println(Arrays.toString(values));
-            ((EmployeeDTO) employee).setFirstName((String) values[0]);
-            ((EmployeeDTO) employee).setLastName((String) values[1]);
-            ((EmployeeDTO) employee).setDateOfBirth((String) values[2]);
-            ((EmployeeDTO) employee).setExperience(new Double(values[3]).toString());
+            ((Employee) employee).setFirstName((String) values[0]);
+            ((Employee) employee).setLastName((String) values[1]);
+            ((Employee) employee).setDateOfBirth((String) values[2]);
+            ((Employee) employee).setExperience((long)values[3]);
+            //((Employee) employee).setExperience(values[3]).toString());
 
             employee.setFirstName(values[0]);
             employee.setLastName(values[1]);
             Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
             employee.setDateOfBirth(dateOfBirth);
-            employee.setExperience((Integer.parseInt(values[3])));
+            employee.setExperience((long.parseInt(values[3])));
             EmployeeCSV.add(employee);
 
         }
@@ -69,7 +71,7 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     }
 
     @Override
-    public ArrayList<EmployeeDTO> readJSON() throws Exception {
+    public ArrayList<Employee> readJSON() throws Exception {
         return null;
     }
 }

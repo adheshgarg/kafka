@@ -1,5 +1,8 @@
 package com.example.demoScope.dto;
 
+import com.example.demoScope.entity.Employee;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EmployeeDTO {
@@ -52,4 +55,6 @@ public class EmployeeDTO {
 
     public void setExperience(long s) {
     }
+
+
 }
