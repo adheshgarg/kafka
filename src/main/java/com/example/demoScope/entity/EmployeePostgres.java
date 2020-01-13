@@ -1,9 +1,15 @@
-package com.example.demoScope.dto;
+package com.example.demoScope.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
-public class EmployeeDTO {
+@Entity
+@Table(name="EMP_POSTGRES")
+public class EmployeePostgres {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name="empId")
     private int empId;
     private String firstName;
     private String lastName;
