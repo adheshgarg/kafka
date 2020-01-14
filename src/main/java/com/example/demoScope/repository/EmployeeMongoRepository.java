@@ -4,6 +4,6 @@ import com.example.demoScope.entity.EmployeeMongo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository(value = "EmployeeMongoRepository")
 public interface EmployeeMongoRepository extends MongoRepository<EmployeeMongo,String> {
 }
