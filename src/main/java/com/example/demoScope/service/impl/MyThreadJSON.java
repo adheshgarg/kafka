@@ -22,17 +22,13 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        return null;
-    }
+    public void readCSV() throws Exception { }
 
     @Override
-    public ArrayList<Employee> readXML() throws Exception {
-        return null;
-    }
+    public void readXML() throws Exception { }
 
     @Override
-    public ArrayList<Employee> readJSON() throws Exception {
+    public void readJSON() throws Exception {
         ArrayList<Employee> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
 
@@ -60,12 +56,8 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
             long Experience = (long) data.get("experience");
             emp.setExperience(Experience);
 
-
-            employeeArray.add(emp);
-
-
         }
-        return employeeArray;
+
     }
 
 
