@@ -9,8 +9,7 @@ import java.util.ArrayList;
 public interface EmployeeServices {
 
       void readCSV() throws Exception;
+      void readXML() throws Exception;
+      void readJSON() throws Exception;
 
-     void readXML() throws Exception;
-
-     void readJSON() throws Exception;
-}
+    }

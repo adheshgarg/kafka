@@ -21,13 +21,17 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
     @Override
     public void readXML() throws Exception {
     }
-    @Override
+
+
+  @Override
     public void readJSON() throws Exception {
-        //ArrayList<Employee> employeeArray = new ArrayList();
+        ArrayList<Employee> employeeArray = new ArrayList();
         Object obj = new JSONParser().parse(new FileReader("employee.json"));
         JSONArray jsonArrayRead = (JSONArray) obj;
         for (int i = 0; i < 100; i++) {
             Employee emp = new Employee();
+
+
             JSONObject data = (JSONObject) jsonArrayRead.get(i);
             String dateOfBirth = (String) data.get("dateOfBirth");
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yy");
@@ -40,9 +44,13 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
             long Experience = (long) data.get("experience");
             emp.setExperience(Experience);
         }
-    }
-    public MyThreadJSON() {
-    }
+
+
+
+        }
+
+
+
     @Override
     public void run() {
         super.run();

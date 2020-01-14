@@ -4,6 +4,8 @@ import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.plugin2.message.Serializer;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
@@ -11,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+
 @Service
-public class MyThreadCSV extends Thread implements EmployeeServices {
+public class MyThreadCSV extends Thread implements EmployeeServices, Serializer {
     @Autowired
     EmployeeRepository employeeRepository;
     Employee employee=new Employee();
@@ -40,8 +44,10 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
         }
+           
+        }
 
-    }
+
     public MyThreadCSV() {
     }
     @Override
@@ -60,3 +66,10 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     public void readJSON() throws Exception {
     }
 }
+
+
+
+
+
+
+

@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Date;
 @Service
 public class MyThreadXML extends Thread implements EmployeeServices {
@@ -57,8 +57,9 @@ public class MyThreadXML extends Thread implements EmployeeServices {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+
     @Override
     public void readJSON() {
     }
