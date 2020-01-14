@@ -13,11 +13,17 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.annotation.KafkaListener;
+import com.example.demoScope.entity.Employee;
+import com.example.demoScope.repository.EmployeeRepository;
+import com.example.demoScope.service.EmployeeServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
+
 @Service
-public class ConsumerPostgres {
+public class ConsumerPostgres extends Thread {
 
 
     @Autowired
@@ -39,6 +45,9 @@ public class ConsumerPostgres {
         BeanUtils.copyProperties(employeeDTO, employeePostgres);
         employeePostgresRepository.save(employeePostgres);
     }
-
+    @Override
+    public void run() {
+        super.run();
+    }
 
 }

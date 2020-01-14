@@ -30,7 +30,7 @@ import java.util.Map;
 class KakfaConfiguration {
 
 
-    @Bean
+   /* @Bean
     public Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -44,7 +44,7 @@ class KakfaConfiguration {
     public ProducerFactory<String, Employee> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
-
+*/
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
@@ -59,10 +59,10 @@ class KakfaConfiguration {
     }
 
 
-    @Autowired
+   /* @Autowired
     private KafkaTemplate<String,Employee> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
-    }
+    }*/
 
 
 

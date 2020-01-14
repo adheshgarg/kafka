@@ -1,42 +1,80 @@
 package com.example.demoScope.controller;
 
-import com.example.demoScope.dto.EmployeeDTO;
-import com.example.demoScope.entity.Employee;
-import com.example.demoScope.service.impl.ProducerService;
-import org.springframework.beans.BeanUtils;
+import com.example.demoScope.service.impl.*;
 import com.example.demoScope.service.impl.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 
 @RestController
-@RequestMapping("/kafka")
-public class EmployeeController {
+@RequestMapping("/start")
+public class EmployeeController extends Thread{
+
+    @Autowired
+    @Qualifier(value = "MyThreadCSV")
+    MyThreadCSV myThreadCSV;
+    @Autowired
+    @Qualifier(value = "MyThreadJSON")
+    MyThreadJSON myThreadJSON;
+    @Autowired
+    @Qualifier(value = "MyThreadXML")
+    MyThreadXML myThreadXML;
+    @Autowired
+    @Qualifier(value = "ConsumerMongo")
+    ConsumerMongo consumerMongo;
+    @Autowired
+    @Qualifier(value = "ConsumerPostgres")
+    ConsumerPostgres consumerPostgres;
+
+    Thread[] thread = new Thread[5];
+
+    @PostConstruct
+    public void threadStart(){
+        myThreadCSV = new MyThreadCSV();
+        thread[0] = myThreadCSV;
+        myThreadJSON = new MyThreadJSON();
+        thread[1] = myThreadJSON;
+        myThreadXML = new MyThreadXML();
+        thread[2] = myThreadXML;
+        for(int index=0;index<3;index++){
+            thread[index].start();
+        }
+        for(int index=0;index<3;index++){
+            try {
+                thread[index].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        consumerMongo = new ConsumerMongo();
+        thread[3] = consumerMongo;
+        consumerPostgres = new ConsumerPostgres();
+        thread[4] = consumerPostgres;
+
+        for(int index=3;index<5;index++){
+            thread[index].start();
+        }
+        for(int index=3;index<5;index++) {
+            try {
+                thread[index].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Autowired
     private ProducerService producerService;
 
-    @PostMapping(value="/sup")
-    public ResponseEntity<String> addOrUpdate(@RequestBody EmployeeDTO employeeDTO)
-    {
-        Employee employee=new Employee();
-        BeanUtils.copyProperties(employeeDTO,employee);
-        Employee employeeCreated=producerService.saveIt(employee); //FUNC KA NAAM DAAL DIYO
-
-        return new ResponseEntity<String>(String.valueOf(employeeCreated.getEmpId()),HttpStatus.CREATED);
-    }
-
     @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopic(){
-        this.producerService.sendMessage();
+    public void sendMessageToKafkaTopic(@RequestParam("message") String message){
+        this.producerService.sendMessage(message);
     }
 
 
