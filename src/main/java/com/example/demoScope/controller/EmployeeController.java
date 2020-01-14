@@ -1,7 +1,9 @@
 package com.example.demoScope.controller;
 
+import com.example.demoScope.entity.Employee;
 import com.example.demoScope.service.impl.*;
 import com.example.demoScope.service.impl.ProducerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,7 @@ public class EmployeeController extends Thread{
     ConsumerPostgres consumerPostgres;
 
     Thread[] thread = new Thread[5];
+    Employee employee = new Employee();
 
     @PostConstruct
     public void threadStart(){
@@ -73,8 +76,10 @@ public class EmployeeController extends Thread{
 
     @PostMapping(value = "/publish")
     public void sendMessageToKafkaTopic(){
-        this.producerService.sendMessage();
+        try {
+            this.producerService.sendMessage(employee);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }
