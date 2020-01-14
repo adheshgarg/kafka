@@ -1,5 +1,6 @@
 package com.example.demoScope.service.impl;
 import com.example.demoScope.dto.EmployeeDTO;
+import com.example.demoScope.entity.Employee;
 import com.example.demoScope.entity.EmployeePostgres;
 import com.example.demoScope.repository.EmployeePostgresRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +16,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,32 +36,15 @@ public class ConsumerPostgres extends Thread {
 
 
     @KafkaListener(topics = "Kafka_Employee_json", groupId = "group_id")
-    public void consume() {
-
-
-        while(true){
-            ConsumerRecords<String,String> consumerRecords=kafkaConsumer.poll(100);
-
-            for (ConsumerRecord<String,String> record:consumerRecords
-                    ) {
-                String message1=record.value();
-
-
-
-                ObjectMapper objectMapper = new ObjectMapper();
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        try {
-            employeeDTO = objectMapper.readValue(message1,EmployeeDTO.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(employeeDTO.toString());
+    public void consume(Employee employee) {
+        System.out.println(employee.toString());
         if(counter < 150){
         EmployeePostgres employeePostgres = new EmployeePostgres();
-        BeanUtils.copyProperties(employeeDTO, employeePostgres);
+        BeanUtils.copyProperties(employee, employeePostgres);
         employeePostgresRepository.save(employeePostgres);
         counter++;}
 
+<<<<<<< HEAD
             }}
     }
 
@@ -95,6 +81,10 @@ public class ConsumerPostgres extends Thread {
         kafkaConsumer=consumerFactoryPostgres();
         kafkaConsumer.subscribe(Arrays.asList(TOPIC));
     }
+=======
+            }
+
+>>>>>>> 5cfc2dfaf3b289f641816c2a8221ef557531f939
 
 
 

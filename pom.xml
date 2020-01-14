@@ -70,6 +70,7 @@
 			<artifactId>kafka-clients</artifactId>
 			<version>0.11.0.0</version>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>org.codehaus.jettison</groupId>
 			<artifactId>jettison</artifactId>
@@ -80,6 +81,9 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.4</version>
 		</dependency>
+=======
+
+>>>>>>> 5cfc2dfaf3b289f641816c2a8221ef557531f939
 	</dependencies>
 
 	<build>

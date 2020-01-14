@@ -1,15 +1,21 @@
 package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bson.internal.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+<<<<<<< HEAD
 import org.springframework.stereotype.Service;
+=======
+import java.io.ObjectOutputStream;
+
+>>>>>>> 5cfc2dfaf3b289f641816c2a8221ef557531f939
 
 @Service
 public class ProducerService {
@@ -22,23 +28,11 @@ public class ProducerService {
     private String jsonTopic;*/
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private KafkaTemplate<String, Employee> kafkaTemplate;
 
     public void sendMessage(Employee employee) {
-
-        String jsonString="";
-        ObjectMapper objectMapper=new ObjectMapper();
-        try{
-            jsonString=objectMapper.writeValueAsString(employee);
-            System.out.println(jsonString);
+        logger.info("sending employee='{}'", employee.toString());
+        kafkaTemplate.send(TOPIC, employee);
         }
-        catch(IOException io){
-            io.printStackTrace();
-        }
-
-        //Employee employee=new Employee();
-        logger.info("sending employee='{}'", jsonString);
-        kafkaTemplate.send(TOPIC, jsonString);
-    }
 
 }
