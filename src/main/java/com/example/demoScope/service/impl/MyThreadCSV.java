@@ -3,6 +3,7 @@ package com.example.demoScope.service.impl;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.service.ThreadInterface;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -18,6 +19,9 @@ import java.util.List;
 
 @Service("MyThreadCSV")
 public class MyThreadCSV extends Thread implements ThreadInterface {
+
+    @Autowired
+    ProducerService producerService;
 
 
     @Override
@@ -53,19 +57,7 @@ public class MyThreadCSV extends Thread implements ThreadInterface {
             }
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
-
-            String jsonString="";
-            ObjectMapper objectMapper=new ObjectMapper();
-            try{
-                jsonString=objectMapper.writeValueAsString(employee);
-                System.out.println(jsonString);
-            }
-            catch(IOException io){
-                io.printStackTrace();
-            }
-
-            ProducerService producerService=new ProducerService();
-            producerService.sendMessage(jsonString);
+            producerService.sendMessage(employee);
 
         }
     }

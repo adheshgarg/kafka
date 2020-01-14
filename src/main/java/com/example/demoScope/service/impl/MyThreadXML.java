@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,6 +23,13 @@ public class MyThreadXML extends Thread implements ThreadInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
     private static final String TOPIC = "Kafka_Employee_json";
+
+    //KafkaProducer<String, String> producer = new KafkaProducer<String,String>(producerConfigs())
+
+
+    @Autowired
+    ProducerService producerService;
+
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -54,20 +60,7 @@ public class MyThreadXML extends Thread implements ThreadInterface {
                     employee.setDateOfBirth(dateOfBirth);
                     long experience = Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
                     employee.setExperience(experience);
-
-
-                    String jsonString="";
-                    ObjectMapper objectMapper=new ObjectMapper();
-                    try{
-                        jsonString=objectMapper.writeValueAsString(employee);
-                        System.out.println(jsonString);
-                    }
-                    catch(IOException io){
-                        io.printStackTrace();
-                    }
-
-                    ProducerService producerService=new ProducerService();
-                    producerService.sendMessage(jsonString);
+                    producerService.sendMessage(employee);
                 }
             }
         } catch (Exception e) {

@@ -2,11 +2,11 @@ package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.service.ThreadInterface;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -16,6 +16,10 @@ import java.util.Date;
 
 @Service(value = "MyThreadJSON")
 public class MyThreadJSON extends Thread implements ThreadInterface {
+
+    @Autowired
+    ProducerService producerService;
+
 
     @Override
     public void read() {
@@ -56,19 +60,9 @@ public class MyThreadJSON extends Thread implements ThreadInterface {
 
             long Experience = (long) data.get("experience");
             emp.setExperience(Experience);
+            producerService.sendMessage(emp);
 
-            String jsonString="";
-            ObjectMapper objectMapper=new ObjectMapper();
-            try{
-                jsonString=objectMapper.writeValueAsString(emp);
-                System.out.println(jsonString);
-            }
-            catch(IOException io){
-                io.printStackTrace();
-            }
 
-            ProducerService producerService=new ProducerService();
-            producerService.sendMessage(jsonString);
         }
     }
 
