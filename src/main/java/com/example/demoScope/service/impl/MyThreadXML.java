@@ -1,6 +1,4 @@
 package com.example.demoScope.service.impl;
-
-//import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
@@ -16,18 +14,14 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 @Service
 public class MyThreadXML extends Thread implements EmployeeServices {
-
     @Autowired
     EmployeeRepository employeeRepository;
 
+
     @Override
     public void readCSV() throws Exception { }
-
-    public static ArrayList<Employee> employeeXML =new ArrayList<Employee>();
-
 
     @Override
     public void readXML() {
@@ -64,10 +58,8 @@ public class MyThreadXML extends Thread implements EmployeeServices {
     @Override
     public void readJSON() { }
 
-    public MyThreadXML() {
-    }
 
-    @Override
+        @Override
     public void run() {
         super.run();
         try {

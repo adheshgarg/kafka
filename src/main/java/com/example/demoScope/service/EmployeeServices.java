@@ -13,5 +13,4 @@ public interface EmployeeServices {
     void readXML() throws Exception;
 
     void readJSON() throws Exception;
-
 }

@@ -1,12 +1,10 @@
 package com.example.demoScope.service.impl;
-
-import com.example.demoScope.dto.EmployeeDTO;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
+import com.example.demoScope.service.kafka.KafkaSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
@@ -14,15 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 @Service
-public class MyThreadCSV extends Thread implements EmployeeServices {
-
+public class MyThreadCSV extends Thread implements EmployeeServices{
     @Autowired
     EmployeeRepository employeeRepository;
-
-    Employee employee=new Employee();
-
+    Employee employee = new Employee();
 
     @Override
     public void readCSV() throws Exception {
@@ -40,15 +34,14 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
             ((Employee) employee).setLastName((String) values[1]);
             ((Employee) employee).setDateOfBirth((String) values[2]);
             ((Employee) employee).setExperience(new Integer(values[3]).toString());
-
             employee.setFirstName(values[0]);
             employee.setLastName(values[1]);
             Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
-
         }
     }
+
 
     public MyThreadCSV() {
     }
@@ -63,10 +56,11 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
         }
     }
 
+    @Override
+    public void readXML() throws Exception {
+    }
 
     @Override
-    public void readXML() throws Exception { }
-
-    @Override
-    public void readJSON() throws Exception { }
+    public void readJSON() throws Exception {
+    }
 }
