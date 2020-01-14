@@ -24,7 +24,8 @@ public class ProducerService implements EmployeeServices {
     @Autowired
     private KafkaTemplate<String, Employee> kafkaTemplate;
 
-    public void sendMessage(Employee employee) {
+    public void sendMessage() {
+        Employee employee=new Employee();
         logger.info("sending car='{}'", employee.toString());
         kafkaTemplate.send(jsonTopic, employee);
     }
