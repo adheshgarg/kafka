@@ -13,18 +13,16 @@ import org.springframework.stereotype.Service;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-@Service
+@Service(value = "MyThreadJSON")
 public class MyThreadJSON extends Thread implements ThreadInterface {
 
     @Autowired
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<Employee> read() {
-        ArrayList<Employee> employeeArray = new ArrayList();
+    public void read() {
         Object obj = null;
         try {
             obj = new JSONParser().parse(new FileReader("employee.json"));
@@ -63,12 +61,7 @@ public class MyThreadJSON extends Thread implements ThreadInterface {
             long Experience = (long) data.get("experience");
             emp.setExperience(Experience);
 
-
-            employeeArray.add(emp);
-
-
         }
-        return employeeArray;
     }
 
 

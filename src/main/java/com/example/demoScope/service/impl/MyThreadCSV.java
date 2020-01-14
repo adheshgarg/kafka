@@ -24,8 +24,7 @@ public class MyThreadCSV extends Thread implements ThreadInterface {
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<Employee> read() throws IOException {
-        ArrayList<Employee> employeeCSV = new ArrayList<Employee>();
+    public void read() throws IOException {
         Employee employee = new Employee();
         String line = " ";
         BufferedReader br = null;
@@ -57,10 +56,8 @@ public class MyThreadCSV extends Thread implements ThreadInterface {
             }
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
-            employeeCSV.add(employee);
 
         }
-        return employeeCSV;
     }
 
     public MyThreadCSV() {

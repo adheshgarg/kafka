@@ -16,18 +16,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Service
+@Service(value = "MyThreadXML")
 public class MyThreadXML extends Thread implements ThreadInterface {
 
     @Autowired
     EmployeeRepository employeeRepository;
 
-
-    public static ArrayList<Employee> employeeXML =new ArrayList<Employee>();
-
-
     @Override
-    public ArrayList<Employee> read() {
+    public void read() {
         try
         {
             File file = new File("employee.xml");
@@ -51,13 +47,11 @@ public class MyThreadXML extends Thread implements ThreadInterface {
                     employee.setDateOfBirth(dateOfBirth);
                     long experience = Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
                     employee.setExperience(experience);
-                    employeeXML.add(employee);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return employeeXML;
     }
 
 
