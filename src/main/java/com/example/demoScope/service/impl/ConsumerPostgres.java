@@ -6,8 +6,6 @@ import com.example.demoScope.service.EmployeeServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
 public class ConsumerPostgres extends Thread implements EmployeeServices {
 

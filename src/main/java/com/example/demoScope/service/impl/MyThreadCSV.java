@@ -18,11 +18,14 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Service("MyThreadCSV")
+@Service(value = "MyThreadCSV")
 public class MyThreadCSV extends Thread implements ThreadInterface {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    ProducerService producerService;
 
     @Override
     public void read() throws IOException {
@@ -57,6 +60,7 @@ public class MyThreadCSV extends Thread implements ThreadInterface {
             }
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
+            producerService.sendMessage(employee);
 
         }
     }

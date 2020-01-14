@@ -1,13 +1,12 @@
 package com.example.demoScope.service;
-
-import com.example.demoScope.entity.Employee;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 
 @Service
 public interface EmployeeServices {
 
-    public void sendMessage();
+    public void sendMessage() throws JsonProcessingException;
 }
 

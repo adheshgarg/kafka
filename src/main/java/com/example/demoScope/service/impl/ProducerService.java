@@ -2,6 +2,8 @@ package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.service.EmployeeServices;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+
 @Service
-public class ProducerService implements EmployeeServices {
+public class ProducerService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
     private static final String TOPIC = "Kafka_Employee_json";
@@ -20,12 +23,15 @@ public class ProducerService implements EmployeeServices {
     private String jsonTopic;
 
     @Autowired
-    private KafkaTemplate<String, Employee> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendMessage() {
-        Employee employee=new Employee();
+
+
+    public void sendMessage(Employee employee) throws JsonProcessingException {
+        //Employee employee=new Employee();
         logger.info("sending car='{}'", employee.toString());
-        kafkaTemplate.send(jsonTopic, employee);
+        ObjectMapper objectMapper = new ObjectMapper();
+        kafkaTemplate.send(jsonTopic, objectMapper.writeValueAsString(employee));
     }
 
 }
