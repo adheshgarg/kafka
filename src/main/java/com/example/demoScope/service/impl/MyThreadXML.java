@@ -1,7 +1,8 @@
 package com.example.demoScope.service.impl;
+
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
-import com.example.demoScope.service.EmployeeServices;
+import com.example.demoScope.service.ThreadInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -14,17 +15,15 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-@Service
-public class MyThreadXML extends Thread implements EmployeeServices {
+
+@Service(value = "MyThreadXML")
+public class MyThreadXML extends Thread implements ThreadInterface {
+
     @Autowired
     EmployeeRepository employeeRepository;
 
-
     @Override
-    public void readCSV() throws Exception { }
-
-    @Override
-    public void readXML() {
+    public void read() {
         try
         {
             File file = new File("employee.xml");
@@ -55,15 +54,15 @@ public class MyThreadXML extends Thread implements EmployeeServices {
         }
     }
 
+
+    public MyThreadXML() {
+    }
+
     @Override
-    public void readJSON() { }
-
-
-        @Override
     public void run() {
         super.run();
         try {
-            this.readXML();
+            this.read();
         } catch (Exception e) {
             e.printStackTrace();
         }
