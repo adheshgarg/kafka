@@ -8,10 +8,10 @@ import java.util.ArrayList;
 @Service
 public interface EmployeeServices {
 
-    ArrayList<Employee> readCSV() throws Exception;
+    void readCSV() throws Exception;
 
-    ArrayList<Employee> readXML() throws Exception;
+    void readXML() throws Exception;
 
-    ArrayList<Employee> readJSON() throws Exception;
+    void readJSON() throws Exception;
 
 }

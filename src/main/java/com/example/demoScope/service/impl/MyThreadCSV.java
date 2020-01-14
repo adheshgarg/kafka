@@ -25,10 +25,7 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
 
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        //CSVFile CSVFile = new CSVFile();
-        ArrayList<Employee> employeeCSV = new ArrayList<Employee>();
-
+    public void readCSV() throws Exception {
         String line = " ";
         BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
         List<String> lines = new ArrayList<>();
@@ -49,10 +46,8 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
             Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
-            employeeCSV.add(employee);
 
         }
-        return employeeCSV;
     }
 
     public MyThreadCSV() {
@@ -70,12 +65,8 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
 
 
     @Override
-    public ArrayList<Employee> readXML() throws Exception {
-        return null;
-    }
+    public void readXML() throws Exception { }
 
     @Override
-    public ArrayList<Employee> readJSON() throws Exception {
-        return null;
-    }
+    public void readJSON() throws Exception { }
 }

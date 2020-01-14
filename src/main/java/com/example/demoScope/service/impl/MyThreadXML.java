@@ -24,15 +24,13 @@ public class MyThreadXML extends Thread implements EmployeeServices {
     EmployeeRepository employeeRepository;
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        return null;
-    }
+    public void readCSV() throws Exception { }
 
     public static ArrayList<Employee> employeeXML =new ArrayList<Employee>();
 
 
     @Override
-    public ArrayList<Employee> readXML() {
+    public void readXML() {
         try
         {
             File file = new File("employee.xml");
@@ -56,19 +54,15 @@ public class MyThreadXML extends Thread implements EmployeeServices {
                     employee.setDateOfBirth(dateOfBirth);
                     long experience = Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
                     employee.setExperience(experience);
-                    employeeXML.add(employee);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return employeeXML;
     }
 
     @Override
-    public ArrayList<Employee> readJSON() {
-        return null;
-    }
+    public void readJSON() { }
 
     public MyThreadXML() {
     }
