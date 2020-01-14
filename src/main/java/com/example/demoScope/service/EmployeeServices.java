@@ -14,4 +14,7 @@ public interface EmployeeServices {
 
     ArrayList<Employee> readJSON() throws Exception;
 
+
+    public void sendMessage();
 }
+
