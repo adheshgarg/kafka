@@ -75,7 +75,7 @@ public class ConsumerMongo extends Thread {
 
 
     @Bean
-    public KafkaConsumer<String, String> consumerFactory() {
+    public KafkaConsumer<String, String> consumerFactoryMongo() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -88,7 +88,7 @@ public class ConsumerMongo extends Thread {
     }
 
     public ConsumerMongo(){
-        kafkaConsumer=consumerFactory();
+        kafkaConsumer=consumerFactoryMongo();
         kafkaConsumer.subscribe(Arrays.asList(TOPIC));
     }
 
