@@ -33,7 +33,6 @@ public class ProducerService implements EmployeeServices {
         kafkaTemplate.send(jsonTopic, employee);
     }
 
-    }
 
     @Override
     public ArrayList<Employee> readCSV() throws Exception {
