@@ -2,7 +2,7 @@ package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
-import com.example.demoScope.service.EmployeeServices;
+import com.example.demoScope.service.ThreadInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -17,21 +17,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Service
-public class MyThreadXML extends Thread implements EmployeeServices {
+public class MyThreadXML extends Thread implements ThreadInterface {
 
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        return null;
-    }
 
     public static ArrayList<Employee> employeeXML =new ArrayList<Employee>();
 
 
     @Override
-    public ArrayList<Employee> readXML() {
+    public ArrayList<Employee> read() {
         try
         {
             File file = new File("employee.xml");
@@ -64,24 +60,15 @@ public class MyThreadXML extends Thread implements EmployeeServices {
         return employeeXML;
     }
 
-    @Override
-    public ArrayList<Employee> readJSON() {
-        return null;
-    }
 
     public MyThreadXML() {
-    }
-
-    @Override
-    public void sendMessage() {
-
     }
 
     @Override
     public void run() {
         super.run();
         try {
-            this.readXML();
+            this.read();
         } catch (Exception e) {
             e.printStackTrace();
         }

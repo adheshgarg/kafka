@@ -3,11 +3,11 @@ package com.example.demoScope.service;
 import com.example.demoScope.entity.Employee;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Service
-public interface EmployeeServices {
+public interface ThreadInterface {
 
-    public void sendMessage();
+    ArrayList<Employee> read() throws IOException;
 }
-
