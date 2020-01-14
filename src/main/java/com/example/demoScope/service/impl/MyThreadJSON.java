@@ -60,9 +60,12 @@ public class MyThreadJSON extends Thread implements ThreadInterface {
 
             long Experience = (long) data.get("experience");
             emp.setExperience(Experience);
+            System.out.println("here");
+            try{
             producerService.sendMessage(emp);
+            }catch (Exception e){
 
-
+            }
         }
     }
 

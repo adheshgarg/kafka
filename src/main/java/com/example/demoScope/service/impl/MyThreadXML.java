@@ -24,9 +24,6 @@ public class MyThreadXML extends Thread implements ThreadInterface {
     private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
     private static final String TOPIC = "Kafka_Employee_json";
 
-    //KafkaProducer<String, String> producer = new KafkaProducer<String,String>(producerConfigs())
-
-
     @Autowired
     ProducerService producerService;
 
@@ -60,9 +57,13 @@ public class MyThreadXML extends Thread implements ThreadInterface {
                     employee.setDateOfBirth(dateOfBirth);
                     long experience = Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
                     employee.setExperience(experience);
-                    producerService.sendMessage(employee);
+                    System.out.println("here");
+                    try {
+                        producerService.sendMessage(employee);
+                    }catch (Exception e) {
+                    }
+                    }
                 }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

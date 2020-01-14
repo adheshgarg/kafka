@@ -57,7 +57,12 @@ public class MyThreadCSV extends Thread implements ThreadInterface {
             }
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
-            producerService.sendMessage(employee);
+            System.out.println("here");
+            try {
+                producerService.sendMessage(employee);
+            }catch (Exception e){
+
+            }
 
         }
     }

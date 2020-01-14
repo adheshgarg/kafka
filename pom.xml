@@ -65,25 +65,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-			<version>0.11.0.0</version>
-		</dependency>
-<<<<<<< HEAD
-		<dependency>
-			<groupId>org.codehaus.jettison</groupId>
-			<artifactId>jettison</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.9.4</version>
-		</dependency>
-=======
-
->>>>>>> 5cfc2dfaf3b289f641816c2a8221ef557531f939
+		<!--<dependency>-->
+			<!--<groupId>org.apache.kafka</groupId>-->
+			<!--<artifactId>kafka-clients</artifactId>-->
+			<!--<version>0.11.0.0</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<build>

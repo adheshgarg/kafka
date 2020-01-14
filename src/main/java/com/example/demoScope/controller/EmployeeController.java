@@ -13,6 +13,9 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/start")
 public class EmployeeController extends Thread{
 
+    //@Autowired
+    //private ProducerService producerService;
+
     @Autowired
     @Qualifier(value = "MyThreadCSV")
     MyThreadCSV myThreadCSV;
@@ -22,14 +25,9 @@ public class EmployeeController extends Thread{
     @Autowired
     @Qualifier(value = "MyThreadXML")
     MyThreadXML myThreadXML;
-    @Autowired
-    @Qualifier(value = "ConsumerMongo")
-    ConsumerMongo consumerMongo;
-    @Autowired
-    @Qualifier(value = "ConsumerPostgres")
-    ConsumerPostgres consumerPostgres;
 
-    Thread[] thread = new Thread[5];
+
+    Thread[] thread = new Thread[3];
 
     @PostConstruct
     public void threadStart(){
@@ -50,25 +48,5 @@ public class EmployeeController extends Thread{
             }
         }
 
-        consumerMongo = new ConsumerMongo();
-        thread[3] = consumerMongo;
-        consumerPostgres = new ConsumerPostgres();
-        thread[4] = consumerPostgres;
-
-        for(int index=3;index<5;index++){
-            thread[index].start();
-        }
-        for(int index=3;index<5;index++) {
-            try {
-                thread[index].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
-
-    @Autowired
-    private ProducerService producerService;
-
-
 }
