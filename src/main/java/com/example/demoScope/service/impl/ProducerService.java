@@ -40,5 +40,9 @@ public class ProducerService implements EmployeeServices {
         kafkaTemplate.send(TOPIC, message);
     }
 
+    @Override
+    public void consume(String message) {
+
+    }
 }
     //KafkaProducer<String,String> producer=new KafkaProducer<String, String>(producre);
