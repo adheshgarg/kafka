@@ -6,19 +6,13 @@ import com.example.demoScope.entity.EmployeeMongo;
 import com.example.demoScope.entity.EmployeePostgres;
 import com.example.demoScope.repository.EmployeeMongoRepository;
 import com.example.demoScope.repository.EmployeePostgresRepository;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.kafka.common.internals.Topic;
-import org.codehaus.jackson.JsonGenerationException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.logging.Logger;
 
 @Service
 public class ConsumerKafka {
@@ -32,12 +26,12 @@ public class ConsumerKafka {
 
     private static int counter=0;
 
-    @KafkaListener(topics = "test3", groupId = "group_id")
-    public void consume(String message){
+    @KafkaListener(topics = "stream", groupId = "smh")
+    public void consume(String msg){
         ObjectMapper objectMapper = new ObjectMapper();
         EmployeeDTO employeeDTO = new EmployeeDTO();
         try {
-            employeeDTO = objectMapper.readValue(message, EmployeeDTO.class);
+            employeeDTO = objectMapper.readValue(msg, EmployeeDTO.class);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface EmployeeServices {
+    void consume(String message);
 
-    Employee saveIt(Employee employee);
+    public void sendMessage();
 }
+
