@@ -46,8 +46,8 @@ class KakfaConfiguration {
     }
 */
 
-    @Bean
-    public ConsumerFactory<String, String> consumerFactory() {
+   @Bean
+    public ConsumerFactory<String, Employee> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
@@ -59,7 +59,7 @@ class KakfaConfiguration {
     }
 
 
-   /* @Autowired
+    /*@Autowired
     private KafkaTemplate<String,Employee> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }*/
@@ -67,8 +67,8 @@ class KakfaConfiguration {
 
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory();
+    public ConcurrentKafkaListenerContainerFactory<String, Employee> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Employee> factory = new ConcurrentKafkaListenerContainerFactory();
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
@@ -79,7 +79,7 @@ class KakfaConfiguration {
         Map<String, Object> config = new HashMap<>();
 
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_json");
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(config, new StringDeserializer(),
