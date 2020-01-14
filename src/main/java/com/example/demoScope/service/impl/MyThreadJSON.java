@@ -1,16 +1,12 @@
 package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
-import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.ThreadInterface;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -20,9 +16,6 @@ import java.util.Date;
 
 @Service(value = "MyThreadJSON")
 public class MyThreadJSON extends Thread implements ThreadInterface {
-
-    @Autowired
-    EmployeeRepository employeeRepository;
 
     @Override
     public void read() {

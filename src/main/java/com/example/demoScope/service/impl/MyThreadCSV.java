@@ -1,10 +1,8 @@
 package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
-import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.ThreadInterface;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -21,8 +19,6 @@ import java.util.List;
 @Service("MyThreadCSV")
 public class MyThreadCSV extends Thread implements ThreadInterface {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
     @Override
     public void read() throws IOException {

@@ -1,7 +1,6 @@
 package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
-import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.ThreadInterface;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -25,13 +24,6 @@ public class MyThreadXML extends Thread implements ThreadInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
     private static final String TOPIC = "Kafka_Employee_json";
-
-    //KafkaProducer<String, String> producer = new KafkaProducer<String,String>(producerConfigs());
-
-
-    @Autowired
-    EmployeeRepository employeeRepository;
-
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
