@@ -33,4 +33,9 @@ public class ConsumerMongo extends Thread implements EmployeeServices {
     public ArrayList<Employee> readJSON() throws Exception {
         return null;
     }
+
+    @Override
+    public void sendMessage() {
+
+    }
 }

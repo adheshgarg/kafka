@@ -20,13 +20,10 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    Employee employee=new Employee();
-
-
     @Override
     public ArrayList<Employee> readCSV() throws Exception {
         ArrayList<Employee> employeeCSV = new ArrayList<Employee>();
-
+        Employee employee = new Employee();
         String line = " ";
         BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
         List<String> lines = new ArrayList<>();
@@ -66,6 +63,10 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
         }
     }
 
+    @Override
+    public void sendMessage() {
+
+    }
 
     @Override
     public ArrayList<Employee> readXML() throws Exception {

@@ -72,6 +72,11 @@ public class MyThreadJSON extends Thread implements EmployeeServices {
     }
 
     @Override
+    public void sendMessage() {
+
+    }
+
+    @Override
     public void run() {
         super.run();
         try {
