@@ -30,6 +30,21 @@ import java.util.Map;
 class KakfaConfiguration {
 
 
+   /* @Bean
+    public Map<String, Object> producerConfigs() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+
+        return props;
+    }
+
+    @Bean
+    public ProducerFactory<String, Employee> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfigs());
+    }
+*/
 
     @Bean
     public ConsumerFactory<String, String> consumerFactory() {
@@ -42,6 +57,12 @@ class KakfaConfiguration {
 
         return new DefaultKafkaConsumerFactory<>(config);
     }
+
+
+   /* @Autowired
+    private KafkaTemplate<String,Employee> kafkaTemplate(){
+        return new KafkaTemplate<>(producerFactory());
+    }*/
 
 
 

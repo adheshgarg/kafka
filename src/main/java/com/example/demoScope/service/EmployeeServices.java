@@ -8,6 +8,6 @@ import java.util.ArrayList;
 @Service
 public interface EmployeeServices {
 
-    public void sendMessage();
+    public void sendMessage(String message);
 }
 

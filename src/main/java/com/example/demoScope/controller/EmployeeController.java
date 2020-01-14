@@ -72,8 +72,8 @@ public class EmployeeController extends Thread{
     private ProducerService producerService;
 
     @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopic(){
-        this.producerService.sendMessage();
+    public void sendMessageToKafkaTopic(@RequestParam("message") String message){
+        this.producerService.sendMessage(message);
     }
 
 
