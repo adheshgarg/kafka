@@ -3,7 +3,12 @@ package com.example.demoScope.service.impl;
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
 import com.example.demoScope.service.EmployeeServices;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -12,6 +17,7 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,8 +25,19 @@ import java.util.Date;
 @Service
 public class MyThreadXML extends Thread implements EmployeeServices {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
+    private static final String TOPIC = "Kafka_Employee_json";
+
+    //KafkaProducer<String, String> producer = new KafkaProducer<String,String>(producerConfigs());
+
+
     @Autowired
     EmployeeRepository employeeRepository;
+
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
 
     @Override
     public ArrayList<Employee> readCSV() throws Exception {
@@ -55,6 +72,21 @@ public class MyThreadXML extends Thread implements EmployeeServices {
                     employee.setDateOfBirth(dateOfBirth);
                     long experience = Integer.parseInt(eElement.getElementsByTagName("experience").item(0).getTextContent());
                     employee.setExperience(experience);
+
+
+                    String jsonString="";
+                    ObjectMapper objectMapper=new ObjectMapper();
+                    try{
+                        jsonString=objectMapper.writeValueAsString(employee);
+                        System.out.println(jsonString);
+                    }
+                    catch(IOException io){
+                        io.printStackTrace();
+                    }
+
+                    MyThreadXML myThreadXML=new MyThreadXML();
+                    myThreadXML.sendMessage(jsonString);
+
                     employeeXML.add(employee);
                 }
             }
@@ -69,6 +101,12 @@ public class MyThreadXML extends Thread implements EmployeeServices {
         return null;
     }
 
+    @Override
+    public void sendMessage(String message) {
+            logger.info("sending employee='{}'", message);
+            kafkaTemplate.send(TOPIC, message);
+    }
+
     public MyThreadXML() {
     }
 
@@ -81,4 +119,8 @@ public class MyThreadXML extends Thread implements EmployeeServices {
             e.printStackTrace();
         }
     }
+
+
+
+
 }
