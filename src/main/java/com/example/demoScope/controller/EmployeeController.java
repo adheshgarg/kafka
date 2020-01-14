@@ -72,10 +72,10 @@ public class EmployeeController extends Thread{
     @Autowired
     private ProducerService producerService;
 
-    @PostMapping(value = "/publish")
+/*    @PostMapping(value = "/publish")
     public void sendMessageToKafkaTopic(@RequestParam("message") String message){
         this.producerService.sendMessage(message);
     }
-
+*/
 
 }
