@@ -2,6 +2,7 @@ package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
+import com.example.demoScope.service.ThreadInterface;
 import com.example.demoScope.service.EmployeeServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -22,8 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Service
-public class MyThreadXML extends Thread implements EmployeeServices {
+@Service(value = "MyThreadXML")
+public class MyThreadXML extends Thread implements ThreadInterface {
 
     private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
     private static final String TOPIC = "Kafka_Employee_json";
@@ -40,15 +41,7 @@ public class MyThreadXML extends Thread implements EmployeeServices {
 
 
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        return null;
-    }
-
-    public static ArrayList<Employee> employeeXML =new ArrayList<Employee>();
-
-
-    @Override
-    public ArrayList<Employee> readXML() {
+    public void read() {
         try
         {
             File file = new File("employee.xml");
@@ -84,28 +77,15 @@ public class MyThreadXML extends Thread implements EmployeeServices {
                         io.printStackTrace();
                     }
 
-                    MyThreadXML myThreadXML=new MyThreadXML();
-                    myThreadXML.sendMessage(jsonString);
-
-                    employeeXML.add(employee);
+                    ProducerService producerService=new ProducerService();
+                    producerService.sendMessage(jsonString);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return employeeXML;
     }
 
-    @Override
-    public ArrayList<Employee> readJSON() {
-        return null;
-    }
-
-    @Override
-    public void sendMessage(String message) {
-            logger.info("sending employee='{}'", message);
-            kafkaTemplate.send(TOPIC, message);
-    }
 
     public MyThreadXML() {
     }
@@ -114,13 +94,9 @@ public class MyThreadXML extends Thread implements EmployeeServices {
     public void run() {
         super.run();
         try {
-            this.readXML();
+            this.read();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

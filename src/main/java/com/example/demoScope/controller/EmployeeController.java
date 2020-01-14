@@ -1,13 +1,11 @@
 package com.example.demoScope.controller;
 
-import com.example.demoScope.service.EmployeeServices;
 import com.example.demoScope.service.impl.*;
 import com.example.demoScope.service.impl.ProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
@@ -17,12 +15,19 @@ import javax.annotation.PostConstruct;
 public class EmployeeController extends Thread{
 
     @Autowired
-    EmployeeServices employeeServices;
-
+    @Qualifier(value = "MyThreadCSV")
     MyThreadCSV myThreadCSV;
+    @Autowired
+    @Qualifier(value = "MyThreadJSON")
     MyThreadJSON myThreadJSON;
+    @Autowired
+    @Qualifier(value = "MyThreadXML")
     MyThreadXML myThreadXML;
+    @Autowired
+    @Qualifier(value = "ConsumerMongo")
     ConsumerMongo consumerMongo;
+    @Autowired
+    @Qualifier(value = "ConsumerPostgres")
     ConsumerPostgres consumerPostgres;
 
     Thread[] thread = new Thread[5];

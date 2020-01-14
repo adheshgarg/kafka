@@ -1,11 +1,15 @@
 package com.example.demoScope.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
 public class Employee {
 
+    @Id
+    @Column(name = "employee_id")
     private int empId;
     private String firstName;
     private String lastName;

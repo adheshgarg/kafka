@@ -19,18 +19,9 @@ public class ConsumerMongo extends Thread implements EmployeeServices {
         super.run();
     }
 
-    @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        return null;
-    }
 
     @Override
-    public ArrayList<Employee> readXML() throws Exception {
-        return null;
-    }
+    public void sendMessage() {
 
-    @Override
-    public ArrayList<Employee> readJSON() throws Exception {
-        return null;
     }
 }

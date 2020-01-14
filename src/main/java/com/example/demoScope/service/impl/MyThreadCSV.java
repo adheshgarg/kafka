@@ -2,33 +2,38 @@ package com.example.demoScope.service.impl;
 
 import com.example.demoScope.entity.Employee;
 import com.example.demoScope.repository.EmployeeRepository;
-import com.example.demoScope.service.EmployeeServices;
+import com.example.demoScope.service.ThreadInterface;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Service
-public class MyThreadCSV extends Thread implements EmployeeServices {
+@Service("MyThreadCSV")
+public class MyThreadCSV extends Thread implements ThreadInterface {
 
     @Autowired
     EmployeeRepository employeeRepository;
 
-    Employee employee=new Employee();
-
-
     @Override
-    public ArrayList<Employee> readCSV() throws Exception {
-        ArrayList<Employee> employeeCSV = new ArrayList<Employee>();
-
+    public void read() throws IOException {
+        Employee employee = new Employee();
         String line = " ";
-        BufferedReader br = new BufferedReader(new FileReader("employee.csv"));
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader("employee.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         List<String> lines = new ArrayList<>();
         while ((line = br.readLine()) != null) {
             lines.add(line);
@@ -44,13 +49,29 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
 
             employee.setFirstName(values[0]);
             employee.setLastName(values[1]);
-            Date dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
+            Date dateOfBirth = null;
+            try {
+                dateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(values[2]);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             employee.setDateOfBirth(dateOfBirth);
             employee.setExperience((Integer.parseInt(values[3])));
-            employeeCSV.add(employee);
+
+            String jsonString="";
+            ObjectMapper objectMapper=new ObjectMapper();
+            try{
+                jsonString=objectMapper.writeValueAsString(employee);
+                System.out.println(jsonString);
+            }
+            catch(IOException io){
+                io.printStackTrace();
+            }
+
+            ProducerService producerService=new ProducerService();
+            producerService.sendMessage(jsonString);
 
         }
-        return employeeCSV;
     }
 
     public MyThreadCSV() {
@@ -60,20 +81,9 @@ public class MyThreadCSV extends Thread implements EmployeeServices {
     public void run() {
         super.run();
         try {
-            this.readCSV();
+            this.read();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    @Override
-    public ArrayList<Employee> readXML() throws Exception {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Employee> readJSON() throws Exception {
-        return null;
     }
 }
